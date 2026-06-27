@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>MP4 Downloader</title>
+
 <style>
 body{
     margin:0;
@@ -15,6 +17,7 @@ body{
     align-items:center;
     height:100vh;
 }
+
 .box{
     width:90%;
     max-width:420px;
@@ -22,15 +25,16 @@ body{
     padding:20px;
     border-radius:18px;
 }
+
 input{
     width:100%;
     padding:12px;
     border-radius:10px;
     border:none;
-    margin-top:15px;
-    margin-bottom:15px;
+    margin:15px 0;
     box-sizing:border-box;
 }
+
 button{
     width:100%;
     padding:12px;
@@ -39,41 +43,69 @@ button{
     background:#2563eb;
     color:white;
     font-size:16px;
-    cursor:pointer;
 }
+
 video{
     width:100%;
     margin-top:20px;
     display:none;
 }
 </style>
+
 </head>
+
 <body>
+
 <div class="box">
+
 <h2>🎬 MP4 Downloader</h2>
-<input
+
+<input 
 id="url"
 placeholder="粘贴 MP4 视频链接">
+
+
 <button onclick="download()">
-预览 / 下载
+下载视频
 </button>
-<video
-id="video"
-controls>
-</video>
+
+
+<video id="video" controls></video>
+
+
 </div>
+
+
 <script>
-function download(){
-const url=document.getElementById("url").value;
-if(url===""){
+
+async function download(){
+
+let url=document.getElementById("url").value;
+
+
+if(!url){
 alert("请输入链接");
 return;
 }
-const video=document.getElementById("video");
+
+
+let video=document.getElementById("video");
+
 video.src=url;
 video.style.display="block";
-window.open(url,"_blank");
+
+
+// 调用Vercel后端下载
+
+window.location.href=
+"/api/download?url="
++encodeURIComponent(url);
+
+
 }
+
 </script>
+
+
 </body>
 </html>
